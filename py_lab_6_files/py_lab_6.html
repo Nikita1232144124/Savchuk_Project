@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ukr" xml:lang="ukr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Nikita Savchuk , 2023">
+<meta name="dcterms.date" content="2023-10-05">
+<meta name="description" content="Документ зроблено за допомогою Quarto">
+
+<title>Лабораторна робота №6. Функції</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="py_lab_6_files/libs/clipboard/clipboard.min.js"></script>
+<script src="py_lab_6_files/libs/quarto-html/quarto.js"></script>
+<script src="py_lab_6_files/libs/quarto-html/popper.min.js"></script>
+<script src="py_lab_6_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="py_lab_6_files/libs/quarto-html/anchor.min.js"></script>
+<link href="py_lab_6_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="py_lab_6_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="py_lab_6_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="py_lab_6_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="py_lab_6_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#що-ви-будете-вміти" id="toc-що-ви-будете-вміти" class="nav-link active" data-scroll-target="#що-ви-будете-вміти">Що ви будете вміти?</a></li>
+  <li><a href="#створення-функції" id="toc-створення-функції" class="nav-link" data-scroll-target="#створення-функції">Створення функції</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1" id="toc-завдання-1" class="nav-link" data-scroll-target="#завдання-1">Завдання 1</a></li>
+  <li><a href="#завдання-2" id="toc-завдання-2" class="nav-link" data-scroll-target="#завдання-2">Завдання 2</a></li>
+  <li><a href="#завдання-3" id="toc-завдання-3" class="nav-link" data-scroll-target="#завдання-3">Завдання 3</a></li>
+  <li><a href="#завдання-4" id="toc-завдання-4" class="nav-link" data-scroll-target="#завдання-4">Завдання 4</a></li>
+  <li><a href="#очікуваний-вивод" id="toc-очікуваний-вивод" class="nav-link" data-scroll-target="#очікуваний-вивод">Очікуваний вивод</a></li>
+  <li><a href="#завдання-5" id="toc-завдання-5" class="nav-link" data-scroll-target="#завдання-5">Завдання 5</a></li>
+  <li><a href="#очікуваний-вивод-1" id="toc-очікуваний-вивод-1" class="nav-link" data-scroll-target="#очікуваний-вивод-1">Очікуваний вивод</a></li>
+  <li><a href="#завдання-6" id="toc-завдання-6" class="nav-link" data-scroll-target="#завдання-6">Завдання 6</a></li>
+  <li><a href="#завдання-7" id="toc-завдання-7" class="nav-link" data-scroll-target="#завдання-7">Завдання 7</a></li>
+  </ul></li>
+  <li><a href="#завдання-для-самостіної-роботи" id="toc-завдання-для-самостіної-роботи" class="nav-link" data-scroll-target="#завдання-для-самостіної-роботи">Завдання для самостіної роботи</a></li>
+  <li><a href="#контрольні-запитання" id="toc-контрольні-запитання" class="nav-link" data-scroll-target="#контрольні-запитання">Контрольні запитання</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота №6. Функції</h1>
+</div>
+
+<div>
+  <div class="description">
+    Документ зроблено за допомогою <a href="https://quarto.org/">Quarto</a>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/"><span style="color: blue;">Nikita Savchuk </span></a>, 2023 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 5, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><strong>Мета:</strong> <em>навчитися писати функції та користуватися ними</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Попередньо потрібно опрацювати лекцію 6.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>У лабораторній роботі використано матеріали <a href="https://pythoninstitute.org/pcep">python institute.</a></p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level2">
+<h2 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h2>
+<ul>
+<li>створювати користувацькі функції.</li>
+<li>викликати користувацькі функції з параметрами та без.</li>
+<li>освоїте обробку списків за допомогою функцій.</li>
+</ul>
+</section>
+<section id="створення-функції" class="level2">
+<h2 class="anchored" data-anchor-id="створення-функції">Створення функції</h2>
+<section id="завдання-1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1">Завдання 1</h3>
+<p>Написати і протестувати функцію, яка приймає один аргумент (рік) і повертає <code>True</code>, якщо рік є високосним, або <code>False</code> інакше.</p>
+<p>Основу функції вже закладено у коді в редакторі.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Для вас підготовлено короткий тестуючий код, який можна використовувати для перевірки своєї функції.</p>
+</div>
+</div>
+<p>У коді використовуються два списки - один із тестовими даними, інший - з очікуваними результатами. Код повідомить Вам, якщо якісь із Ваших результатів неправильні.</p>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_year_leap(year):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> year <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> year <span class="op">%</span> <span class="dv">100</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> year <span class="op">%</span> <span class="dv">400</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>test_data <span class="op">=</span> [<span class="dv">1900</span>, <span class="dv">2000</span>, <span class="dv">2016</span>, <span class="dv">1987</span>]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>test_results <span class="op">=</span> [<span class="va">False</span>, <span class="va">True</span>, <span class="va">True</span>, <span class="va">False</span>]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_data)):</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    yr <span class="op">=</span> test_data[i]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(yr,<span class="st">"-&gt;"</span>,end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> is_year_leap(yr)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> result <span class="op">==</span> test_results[i]:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"OK"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Failed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/96d09e61-1-d08b50a4-9d40-49b2-81fb-f9ca1db000be.png" class="img-fluid"></p>
+</section>
+<section id="завдання-2" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2">Завдання 2</h3>
+<p>Написати та протестувати функцію, яка приймає два аргументи (рік і місяць) і повертає кількість днів для даної пари рік-місяць (у той час, як тільки лютий чутливий до значення <code>year</code>, Ваша функція має бути універсальною).</p>
+<p>Початок функції готовий. Тепер переконайте функцію повернути <code>None</code>, якщо її аргументи не мають сенсу.</p>
+<p>Звичайно, Ви можете (і повинні) використовувати раніше написану та протестовану функцію (див. попередні лаб. роб.). Це може бути дуже корисним. Ми рекомендуємо використовувати список із зазначенням довжини місяців. Ви можете створити його всередині функції – цей трюк значно скоротить код.</p>
+<p>Ми підготували тестуючий код. Розвійте його, щоб увімкнути більше тестових випадків.</p>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> days_in_month(year, month):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    days_in_months <span class="op">=</span> [<span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> month <span class="op">&gt;</span> <span class="dv">12</span> <span class="kw">or</span> year <span class="op">&lt;</span> <span class="dv">1</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_year_leap(year):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        days_in_months[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">29</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> days_in_months[month <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>test_years <span class="op">=</span> [<span class="dv">1900</span>, <span class="dv">2000</span>, <span class="dv">2016</span>, <span class="dv">1987</span>]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>test_months <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">11</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>test_results <span class="op">=</span> [<span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">30</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(test_years)):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    yr <span class="op">=</span> test_years[i]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    mo <span class="op">=</span> test_months[i]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(yr, mo, <span class="st">"-&gt;"</span>, end<span class="op">=</span><span class="st">""</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> days_in_month(yr, mo)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> result <span class="op">==</span> test_results[i]:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"OK"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Failed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/549440a3-1-48120cd5-7535-4a0a-8fc8-0a2f496ca22b.png" class="img-fluid"></p>
+</section>
+<section id="завдання-3" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3">Завдання 3</h3>
+<p>Написати та протестувати функцію, яка приймає три аргументи (рік, місяць та день місяця) та повертає відповідний день року або None, якщо якийсь із аргументів невірний.</p>
+<p>Використовуйте раніше написані та протестовані функції. Додайте до коду свої власні тестові випадки.</p>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_year_leap(year):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> year <span class="op">%</span> <span class="dv">4</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> year <span class="op">%</span> <span class="dv">100</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> year <span class="op">%</span> <span class="dv">400</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> days_in_month(year, month):</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    days_in_months <span class="op">=</span> [<span class="dv">31</span>, <span class="dv">28</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>, <span class="dv">30</span>, <span class="dv">31</span>]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> month <span class="op">&gt;</span> <span class="dv">12</span> <span class="kw">or</span> year <span class="op">&lt;</span> <span class="dv">1</span>:</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_year_leap(year):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        days_in_months[<span class="dv">1</span>] <span class="op">=</span> <span class="dv">29</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> days_in_months[month <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> day_of_year(year, month, day):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> is_year_leap(year) <span class="kw">and</span> month <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> day <span class="op">&gt;</span> <span class="dv">28</span>:</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    days <span class="op">=</span> days_in_month(year, month)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> days <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> day <span class="op">&lt;</span> <span class="dv">1</span> <span class="kw">or</span> day <span class="op">&gt;</span> days:</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    day_number <span class="op">=</span> <span class="bu">sum</span>(days_in_month(year, m) <span class="cf">for</span> m <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, month)) <span class="op">+</span> day</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> day_number</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(day_of_year(<span class="dv">2000</span>, <span class="dv">12</span>, <span class="dv">31</span>))</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(day_of_year(<span class="dv">2008</span>, <span class="dv">10</span>, <span class="dv">14</span>))</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(day_of_year(<span class="dv">2024</span>, <span class="dv">5</span>, <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/097543fd-1-acff8f85-8fe5-4e70-ada7-ba893fc9a2e9.png" class="img-fluid"></p>
+</section>
+<section id="завдання-4" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4">Завдання 4</h3>
+<p>Натуральне число є простим, якщо воно більше 1 і не має дільників, крім 1 і самого себе.</p>
+<p>Важко? Зовсім ні. Наприклад, 8 не є простим числом, оскільки Ви можете розділити його на 2 та 4 (ми не можемо використовувати дільники, рівні 1 та 8, оскільки визначення забороняє це).</p>
+<p>З іншого боку, 7 - просте число, оскільки ми можемо знайти йому підходящих дільників.</p>
+<p>Ваше завдання - написати функцію, що перевіряє, чи є число простим чи ні.</p>
+<p>Функція:</p>
+<ul>
+<li>називається <code>is_prime</code>;</li>
+<li>приймає один аргумент (значення для перевірки)</li>
+<li>повертає <code>True</code>, якщо аргумент є простим числом, і <code>False</code> інакше.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Підказка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Спробуйте розділити аргумент на всі наступні значення (починаючи з 2) і перевірте залишок - якщо він дорівнює нулю, Ваше число не може бути простим; добре подумайте, коли вам слід зупинити процес.</p>
+</div>
+</div>
+<p>Якщо вам потрібно знайти квадратний корінь із будь-якого значення, Ви можете використовувати оператор <code>**</code>. Пам’ятайте: квадратний корінь <code>x</code> дорівнює <span class="math inline">\(x^{0,5}\)</span>.</p>
+<p>Доповніть код у редакторі.</p>
+<div class="cell" data-execution_count="12">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_prime(num):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num <span class="op">&lt;=</span> <span class="dv">1</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>, <span class="bu">int</span>(num <span class="op">**</span> <span class="fl">0.5</span>) <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> num <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">20</span>):</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_prime(i <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i <span class="op">+</span> <span class="dv">1</span>, end<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/c9b9da9e-1-04e88599-5124-4813-8ce9-68b40956c056.png" class="img-fluid"></p>
+</section>
+<section id="очікуваний-вивод" class="level3">
+<h3 class="anchored" data-anchor-id="очікуваний-вивод">Очікуваний вивод</h3>
+<p><code>2 3 5 7 11 13 17 19</code></p>
+</section>
+<section id="завдання-5" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5">Завдання 5</h3>
+<p>Витрата палива автомобіля можна висловити по-різному. Наприклад, у Європі він відображається як кількість витраченого палива на 100 кілометрів шляху.</p>
+<p>У США він відображається як кількість миль, пройдених автомобілем під час витрачання одного галону палива.</p>
+<p>Ваше завдання - написати дві функції, що конвертують л/100км в миль на галон, і навпаки.</p>
+<p>Функції:</p>
+<ul>
+<li>названі <code>liters_100km_to_miles_gallon</code> та <code>miles_gallon_to_liters_100km</code> відповідно;</li>
+<li>приймають один аргумент (значення, що відповідає їхнім іменам)</li>
+</ul>
+<p>Доповніть код у редакторі.</p>
+<p>Запустіть свій код і перевірте, чи Ваш результат збігається з нашим.</p>
+<p>Ось деяка інформація, яка може допомогти Вам:</p>
+<ul>
+<li>1 американська мідя = 1609.344 метрів;</li>
+<li>1 американський галон = 3.785411784 літрів.</li>
+</ul>
+<div class="cell" data-execution_count="13">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> liters_100km_to_miles_gallon(liters):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    miles <span class="op">=</span> <span class="dv">100</span> <span class="op">/</span> (liters <span class="op">/</span> <span class="fl">3.785411784</span> <span class="op">*</span> <span class="fl">1.609344</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> miles</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> miles_gallon_to_liters_100km(miles):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    liters <span class="op">=</span> <span class="dv">100</span> <span class="op">/</span> (miles <span class="op">*</span> <span class="fl">1.609344</span> <span class="op">/</span> <span class="fl">3.785411784</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> liters</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(liters_100km_to_miles_gallon(<span class="fl">3.9</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(liters_100km_to_miles_gallon(<span class="fl">7.5</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(liters_100km_to_miles_gallon(<span class="fl">10.</span>))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(miles_gallon_to_liters_100km(<span class="fl">60.3</span>))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(miles_gallon_to_liters_100km(<span class="fl">31.4</span>))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(miles_gallon_to_liters_100km(<span class="fl">23.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/261555b8-1-8b1a0f02-f96b-4ba7-b311-005f3d2fd4cf.png" class="img-fluid"></p>
+</section>
+<section id="очікуваний-вивод-1" class="level3">
+<h3 class="anchored" data-anchor-id="очікуваний-вивод-1">Очікуваний вивод</h3>
+<p><code>60.31143162393162</code><br>
+<code>31.36194444444444</code><br>
+<code>23.52145833333333</code><br>
+<code>3.9007393587617467</code><br>
+<code>7.490910297239916</code><br>
+<code>10.009131205673757</code></p>
+</section>
+<section id="завдання-6" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6">Завдання 6</h3>
+<p>Написати функцію, яка перевіряє, чи три сторони заданої довжини побудувати трикутник. Вона має повернути <code>True</code>, якщо сторони можуть утворити трикутник, і <code>False</code> в іншому випадку. У цьому випадку <code>is_a_triangle(a, b, c)</code> – гарна назва для такої функції.</p>
+<div class="cell" data-execution_count="21">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_a_triangle(a, b, c):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (a <span class="op">+</span> b <span class="op">&gt;</span> c) <span class="kw">and</span> (b <span class="op">+</span> c <span class="op">&gt;</span> a) <span class="kw">and</span> (a <span class="op">+</span> c <span class="op">&gt;</span> b)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_triangle(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_triangle(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>))  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_triangle(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/f9ef1678-1-2b6a6b4a-d564-4c47-94ec-787e0711325f.png" class="img-fluid"></p>
+</section>
+<section id="завдання-7" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7">Завдання 7</h3>
+<p>Написати функцію <code>is_a_right_triangle(a, b, c)</code>, яка перевіряє, чи є трикутник зі сторонами <code>a</code>, <code>b</code>, <code>c</code> прямокутним. При цьому потрібно використати функцію <code>is_a_triangle(a, b, c)</code> з завдання 6.</p>
+<div class="cell" data-execution_count="23">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_a_triangle(a, b, c):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (a <span class="op">+</span> b <span class="op">&gt;</span> c) <span class="kw">and</span> (b <span class="op">+</span> c <span class="op">&gt;</span> a) <span class="kw">and</span> (a <span class="op">+</span> c <span class="op">&gt;</span> b)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_a_right_triangle(a, b, c):</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_a_triangle(a, b, c):</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        hypotenuse <span class="op">=</span> <span class="bu">max</span>(a, b, c)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        squares_sum <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> hypotenuse <span class="op">==</span> a:</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            squares_sum <span class="op">=</span> b <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> c <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> hypotenuse <span class="op">==</span> b:</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            squares_sum <span class="op">=</span> a <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> c <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            squares_sum <span class="op">=</span> a <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> b <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> hypotenuse <span class="op">**</span> <span class="dv">2</span> <span class="op">==</span> squares_sum:</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_right_triangle(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_right_triangle(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(is_a_right_triangle(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_6_files/figure-html/e8ee6d86-1-77b138a7-b247-4ddd-bff1-3a8a9ab0770f.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="завдання-для-самостіної-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="завдання-для-самостіної-роботи">Завдання для самостіної роботи</h2>
+<ol type="1">
+<li><p>Виконати завдання 1-7 наведені вище у цьому зошиті.</p></li>
+<li><p>Створити файл <strong>lab_6_StudentLastName.py</strong> з написаним кодом.</p></li>
+<li><p>Закомітити файл у локальний репозиторій.</p></li>
+<li><p>Відправити (“запушити”) поточну версію Git-проєкта у віддалений репозиторій на GitHub.</p></li>
+<li><p>Звіт має складатися з файлу (за основу взяти <strong>цей Python-зошит</strong>) <code>lab_6_StudentLastName.ipynb</code>. (Можливі якісь додакові файли)</p></li>
+</ol>
+</section>
+<section id="контрольні-запитання" class="level2">
+<h2 class="anchored" data-anchor-id="контрольні-запитання">Контрольні запитання</h2>
+<ol type="1">
+<li><p>Який вивод наступного фрагмента?<br>
+<img src="py_lab_6_files/figure-html/3bc4307a-2-0f067d0c-283b-459c-b507-194d9a1b0a65.png" class="img-fluid" alt="image.png"></p></li>
+<li><p>Який вивод наступного фрагмента?<br>
+<img src="py_lab_6_files/figure-html/3bc4307a-3-6af6fb73-7ba8-4b30-a0ad-bc2e74adae79.png" class="img-fluid" alt="image.png"></p></li>
+<li><p>Який вивод наступного фрагмента?<br>
+<img src="py_lab_6_files/figure-html/3bc4307a-1-081f0c11-7b4f-4a86-b1a2-69e001093c2a.png" class="img-fluid" alt="image.png"></p></li>
+<li><p>Який вивод наступного фрагмента?<br>
+<img src="py_lab_6_files/figure-html/3bc4307a-4-b47cf215-9ae4-48c4-892d-f45f446ac928.png" class="img-fluid" alt="image.png"></p></li>
+</ol>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li><a href="https://uk.wikipedia.org/wiki/Anaconda_(Python_distribution)">Anaconda (Python distribution)</a></li>
+<li><a href="https://conda.io/en/latest/">Conda</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Pro Git Book</a></li>
+<li><a href="https://pythoninstitute.org/">OpenEDG Python Institute</a></li>
+<li><a href="https://www.netacad.com/">Cisco. Networking Academy</a></li>
+<li><a href="https://data-visualization-blog.netlify.app/posts/quarto/">Научно-издательская система Quarto</a></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
