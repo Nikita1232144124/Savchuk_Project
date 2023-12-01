@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ukr" xml:lang="ukr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="© Nikita Savchuk , 2023">
+<meta name="dcterms.date" content="2023-09-14">
+<meta name="description" content="Документ зроблено за допомогою Quarto">
+
+<title>Лабораторна робота №3. Змінні. Базові операції вводу/виводу</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="py_lab_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="py_lab_3_files/libs/quarto-html/quarto.js"></script>
+<script src="py_lab_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="py_lab_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="py_lab_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="py_lab_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="py_lab_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="py_lab_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="py_lab_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="py_lab_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#робота-зі-змінними" id="toc-робота-зі-змінними" class="nav-link active" data-scroll-target="#робота-зі-змінними">Робота зі змінними</a>
+  <ul class="collapse">
+  <li><a href="#завдання-1" id="toc-завдання-1" class="nav-link" data-scroll-target="#завдання-1">Завдання № 1</a></li>
+  <li><a href="#завдання-2" id="toc-завдання-2" class="nav-link" data-scroll-target="#завдання-2">Завдання № 2</a></li>
+  <li><a href="#завдання-3" id="toc-завдання-3" class="nav-link" data-scroll-target="#завдання-3">Завдання № 3</a></li>
+  <li><a href="#завдання-4" id="toc-завдання-4" class="nav-link" data-scroll-target="#завдання-4">Завдання № 4</a></li>
+  <li><a href="#завдання-5" id="toc-завдання-5" class="nav-link" data-scroll-target="#завдання-5">Завдання № 5</a></li>
+  <li><a href="#завдання-6" id="toc-завдання-6" class="nav-link" data-scroll-target="#завдання-6">Завдання № 6</a></li>
+  <li><a href="#завдання-7" id="toc-завдання-7" class="nav-link" data-scroll-target="#завдання-7">Завдання № 7</a></li>
+  <li><a href="#завдання-8" id="toc-завдання-8" class="nav-link" data-scroll-target="#завдання-8">Завдання № 8</a></li>
+  </ul></li>
+  <li><a href="#завдання-для-самостіної-роботи" id="toc-завдання-для-самостіної-роботи" class="nav-link" data-scroll-target="#завдання-для-самостіної-роботи">Завдання для самостіної роботи</a></li>
+  <li><a href="#контрольні-запитання" id="toc-контрольні-запитання" class="nav-link" data-scroll-target="#контрольні-запитання">Контрольні запитання</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Лабораторна робота №3. Змінні. Базові операції вводу/виводу</h1>
+</div>
+
+<div>
+  <div class="description">
+    Документ зроблено за допомогою <a href="https://quarto.org/">Quarto</a>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>© <a href="https://www.linkedin.com/in/valeriy-sydorenko-6782279a/"><span style="color: blue;">Nikita Savchuk </span></a>, 2023 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 14, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><strong>Мета:</strong> <em>освоїти роботу зі змінними та операції вводу і виводу</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Перед виконанням лабораторної роботи необхідно опрацювати матеріал <strong>Лекції 3</strong>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Примітка
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>У лабораторній роботі використано матеріали <a href="https://pythoninstitute.org/pcep">python institute.</a></p>
+</div>
+</div>
+<section id="що-ви-будете-вміти" class="level4">
+<h4 class="anchored" data-anchor-id="що-ви-будете-вміти">Що ви будете вміти?</h4>
+<ul>
+<li>оперувати змінними строкового, цілого типу та типу з плаваючою комою.</li>
+<li>використовувати функцію <code>input()</code>.</li>
+<li>використовувати функції конвертації типів <code>int()</code>, <code>float()</code>, <code>string()</code>.</li>
+</ul>
+</section>
+<section id="робота-зі-змінними" class="level2">
+<h2 class="anchored" data-anchor-id="робота-зі-змінними">Робота зі змінними</h2>
+<section id="завдання-1" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-1">Завдання № 1</h3>
+<p>Написати програму, яка обчислює значення функції Гауса: <span class="math display">\[f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}\]</span></p>
+<div class="cell" data-tags="[]" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (sigma <span class="op">*</span> math.sqrt(<span class="dv">2</span> <span class="op">*</span> math.pi))<span class="op">-</span>((x <span class="op">-</span> mu) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> (sigma <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'f(x)='</span>,result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/4bbb34bd-1-335dec4e-a493-4bb5-a8b8-0e484e7a77a5.png" class="img-fluid"></p>
+</section>
+<section id="завдання-2" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-2">Завдання № 2</h3>
+<p>Ось невелика розповідь:</p>
+<p>Якось Джон (John) мав три яблука, Мері (Mary) мала п’ять яблук, а Адам (Adam) мав шість яблук. Усі вони були дуже щасливі та жили довго. Кінець історії.</p>
+<p>Ваше завдання:</p>
+<ul>
+<li><p>створіть змінні: <code>john</code>, <code>mary</code>, і <code>adam</code>;</p></li>
+<li><p>надайте значення змінним. Значення повинні дорівнювати кількості фруктів, якими володіють Джон, Мері, і Адам відповідно;</p></li>
+<li><p>зберігши числа в змінних, виведіть змінні в один рядок і розділіть їх комами;</p></li>
+<li><p>тепер створіть нову змінну з ім’ям <code>totalApple</code>, що дорівнює сумі трьох попередніх змінних;</p></li>
+<li><p>вивести значення, збережене в <code>totalapples</code>, в консоль;</p></li>
+<li><p>надрукувати рядок та ціле число разом в одному рядку, наприклад, “Загальна кількість яблук:” та <code>total_apples</code>|.</p></li>
+</ul>
+<div class="cell" data-execution_count="53">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>john<span class="op">=</span><span class="dv">3</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mary<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>adam<span class="op">=</span><span class="dv">6</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(john,mary,adam,sep<span class="op">=</span><span class="st">","</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>totalapples<span class="op">=</span>john<span class="op">+</span>mary<span class="op">+</span>adam</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(totalapples)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Загальна кількість яблук:"</span>,totalapples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/38fffdc7-1-5ebea09d-3458-4c33-9798-90b24318324f.png" class="img-fluid"></p>
+</section>
+<section id="завдання-3" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-3">Завдання № 3</h3>
+<p>Милі та кілометри – це одиниці довжини або відстані.</p>
+<p>Враховуючи, що 1 миля дорівнює приблизно 1.61 кілометрам, напишіть програму, щоб вона перетворила:</p>
+<ul>
+<li><p>милі у кілометри;</p></li>
+<li><p>кілометри на милі.</p></li>
+</ul>
+<p>Не змінюйте нічого в існуючому коді. Напишіть свій код у місцях, вказаних ###. Протестуйте вашу програму з даними, які надано у вихідному коді.</p>
+<p>Зверніть особливу увагу на те, що відбувається всередині функції <code>print()</code>. Проаналізуйте, як ми надаємо кілька аргументів функції та як ми виводимо очікувані дані.</p>
+<p>Зауважте, що деякі аргументи всередині функції <code>print()</code> є рядками (наприклад, <code>"miles is"</code>, тоді як деякі інші є змінними (наприклад, <code>miles</code>).</p>
+<div class="cell" data-execution_count="54">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>kilometers <span class="op">=</span> <span class="fl">12.25</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>miles <span class="op">=</span> <span class="fl">7.38</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>miles_to_kilometers <span class="op">=</span> miles <span class="op">*</span> <span class="fl">1.61</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>kilometers_to_miles <span class="op">=</span> kilometers <span class="op">/</span> <span class="fl">1.61</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(miles, <span class="st">"miles is"</span>, <span class="bu">round</span>(miles_to_kilometers, <span class="dv">2</span>), <span class="st">"kilometers"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kilometers, <span class="st">"kilometers is"</span>, <span class="bu">round</span>(kilometers_to_miles, <span class="dv">2</span>), <span class="st">"miles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/552f73c2-1-c724b3ec-cc75-4010-a90e-81252af59b48.png" class="img-fluid"></p>
+<p>Очикуваний вивод:</p>
+<p><code>7.38 miles is 11.88 kilometers</code></p>
+<p><code>12.25 kilometers is 7.61 miles</code></p>
+</section>
+<section id="завдання-4" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-4">Завдання № 4</h3>
+<p>Подивіться код у редакторі: він читає “плаваюче” значення, поміщає його у змінну з ім’ям <code>x</code>, і друкує значення змінної з ім’ям <code>y</code>. Ваше завдання - завершити код, щоб оцінити такий вираз:</p>
+<p><span class="math display">\[3x^3 - 2x^2 + 3^x - 1\]</span></p>
+<p>Результат має бути присвоєний <code>y</code>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">3</span><span class="op">*</span>x<span class="op">**</span><span class="dv">3</span><span class="op">-</span><span class="dv">2</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span><span class="op">+</span><span class="dv">3</span><span class="op">*</span>x<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"y ="</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/d2f4f882-1-18188851-136e-4463-9cd3-4c01c59e9bbf.png" class="img-fluid"></p>
+<p><strong>Тестові данні</strong></p>
+<p>Приклад вводу</p>
+<p><code>x = 0</code></p>
+<p><code>x = 1</code></p>
+<p><code>x = -1</code></p>
+<p>Приклад виводу</p>
+<p><code>y = -1.0</code></p>
+<p><code>y = 3.0</code></p>
+<p><code>y = -9.0</code></p>
+</section>
+<section id="завдання-5" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-5">Завдання № 5</h3>
+<p>Код редактора містить коментарі. Спробуйте покращити його: додайте або видаліть коментарі там, де ви вважаєте це доречним (так, іноді видалення коментаря може зробити код більш читабельним) і змініть імена змінних там, де, на вашу думку, це покращить розуміння коду.</p>
+<div class="cell" data-execution_count="55">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this program computes the number of seconds in a given number of hours</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>hours <span class="op">=</span> <span class="dv">2</span> <span class="co"># number of hours</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>seconds <span class="op">=</span> <span class="dv">3600</span> <span class="co"># number of seconds in 1 hour</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hours: "</span>, hours) </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Seconds in Hours: "</span>, hours <span class="op">*</span> seconds) <span class="co"># printing the number of seconds in a given number of hours</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#this is the end of the program that computes the number of seconds in 2 hour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hours:  2</code></pre>
+</div>
+</div>
+<p><img src="py_lab_3_files/figure-html/ac57e026-1-a3872128-13fa-4a93-9342-60b018d14959.png" class="img-fluid"></p>
+</section>
+<section id="завдання-6" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-6">Завдання № 6</h3>
+<p>Ваше завдання – завершити код, щоб отримати результати чотирьох основних арифметичних операцій.</p>
+<p>Результати мають бути виведені у консолі.</p>
+<p>Можливо, ви не зможете захистити код від користувача, який хоче ділити на нуль. Пізніше ми взнаємо, як це зробити.</p>
+<div class="cell" data-execution_count="56">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="fl">16.2</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"addition:"</span>,a<span class="op">+</span>b)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"subtraction:"</span>,a<span class="op">-</span>b)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"multiplication:"</span>,a<span class="op">*</span>b)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"division:"</span>,a<span class="op">/</span>b)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">That's all, folks!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+That's all, folks!</code></pre>
+</div>
+</div>
+<p><img src="py_lab_3_files/figure-html/8ec919f3-1-96e4c10d-70e0-4ff7-9c9c-a26792e5bcc8.png" class="img-fluid"></p>
+</section>
+<section id="завдання-7" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-7">Завдання № 7</h3>
+<p>Ваше завдання – завершити код, щоб оцінити такий вираз: <span class="math display">\[\frac{1}{x + \frac{1}{x + \frac{1}{x + \frac{1}{x + \frac{1}{x}}}}}\]</span></p>
+<p>Результат має бути присвоєний <code>y</code>.</p>
+<p>Ви можете використовувати додаткові змінні для зменшення виразу (але це не обов’язково). Ретельно тестуйте свій код.</p>
+<div class="cell" data-execution_count="57">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Enter value for x: "</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span><span class="dv">1</span><span class="op">/</span>(x <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> (x <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> (x <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> (x <span class="op">+</span> (<span class="dv">1</span> <span class="op">/</span> x))))))))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"y ="</span>, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/df330c98-1-7ef37a1b-d1fc-4cea-9013-25c8d525bc11.png" class="img-fluid"></p>
+<p><strong>Тестові дані</strong></p>
+<p><code>x = 1</code></p>
+<p><code>y = 0.6000000000000001</code></p>
+<p><code>x = 10</code></p>
+<p><code>y = 0.09901951266867294</code></p>
+<p><code>x = 100</code></p>
+<p><code>y = 0.009999000199950014</code></p>
+<p><code>x = -5</code></p>
+<p><code>y = -0.19258202567760344</code></p>
+</section>
+<section id="завдання-8" class="level3">
+<h3 class="anchored" data-anchor-id="завдання-8">Завдання № 8</h3>
+<p>Ваше завдання - підготувати простий код, здатний порахувати час закінчення періоду часу, вираженого в кількості хвилин (воно може бути як завгодно великим). Час початку вказується у вигляді пари годин (0..23) та хвилин (0..59). Результат повинен бути надрукований на консолі.</p>
+<p>Наприклад, якщо подія починається о <strong>12:17</strong> і триває <strong>59</strong> хвилин, вона закінчується о <strong>13:16</strong>.</p>
+<p>Не турбуйтеся про будь-які недоліки у вашому коді –- це нормально, якщо він приймає неприпустимий час -– найважливіше, що код видає дійсні результати для правильних вхідних даних.</p>
+<p>Ретельно перевірте код. Підказка: використання оператора <code>%</code> може бути ключем до успіху.</p>
+<div class="cell" data-execution_count="58">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>hour <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Starting time (hours): "</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>mins <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Starting time (minutes): "</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dura <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Event duration (minutes): "</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>min_result<span class="op">=</span> (mins<span class="op">+</span>dura)<span class="op">%</span><span class="dv">60</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>hour_result<span class="op">=</span>(hour<span class="op">+</span>(mins<span class="op">+</span>dura)<span class="op">//</span><span class="dv">60</span>)<span class="op">%</span><span class="dv">24</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hour_result,min_result,sep<span class="op">=</span><span class="st">":"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><img src="py_lab_3_files/figure-html/f67dd2ff-1-f126dc90-541c-40df-9d2e-043cb520b9dd.png" class="img-fluid"></p>
+<p><strong>Тестові дані</strong></p>
+<p>Приклад вводу:</p>
+<p><code>12</code></p>
+<p><code>17</code></p>
+<p><code>59</code></p>
+<p>Очікуваний результат: <code>13:16</code></p>
+<p>Приклад вводу:</p>
+<p><code>23</code></p>
+<p><code>58</code></p>
+<p><code>642</code></p>
+<p>Очікуваний результат: <code>10:40</code></p>
+<p>Приклад вводу:</p>
+<p><code>0</code></p>
+<p><code>1</code></p>
+<p><code>2939</code></p>
+<p>Очікуваний результат: <code>1:0</code></p>
+</section>
+</section>
+<section id="завдання-для-самостіної-роботи" class="level2">
+<h2 class="anchored" data-anchor-id="завдання-для-самостіної-роботи">Завдання для самостіної роботи</h2>
+<ol type="1">
+<li><p>Виконати завдання 1-8, наведені вище у цьому зошиті.</p></li>
+<li><p>Створити файл <strong>lab_3_StudentLastName.py</strong> з написаним кодом.</p></li>
+<li><p>Закомітити файл у локальний репозиторій.</p></li>
+<li><p>Відправити поточну версію Git-проєкта у віддалений репозиторій на GitHub.</p></li>
+<li><p>Звіт має складатися з файлу (за основу взяти <strong>цей Python-зошит</strong>) <code>lab_3_StudentLastName.ipynb</code>. (Можливі якісь додакові файли)</p></li>
+</ol>
+</section>
+<section id="контрольні-запитання" class="level2">
+<h2 class="anchored" data-anchor-id="контрольні-запитання">Контрольні запитання</h2>
+<ol type="1">
+<li><p>Який вивод наступного фрагмента? <img src="py_lab_3_files/figure-html/a223a595-1-1360c658-010b-4de1-a472-146e2538d7fa.png" class="img-fluid" alt="image.png"></p></li>
+<li><p>Який очікуваний результат наступного фрагмента? <img src="py_lab_3_files/figure-html/a223a595-2-60241ea3-0668-4101-b53a-ded32d40f1be.png" class="img-fluid" alt="image.png"></p></li>
+</ol>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li><a href="https://uk.wikipedia.org/wiki/Anaconda_(Python_distribution)">Anaconda (Python distribution)</a></li>
+<li><a href="https://conda.io/en/latest/">Conda</a></li>
+<li><a href="https://git-scm.com/book/en/v2">Pro Git Book</a></li>
+<li><a href="https://pythoninstitute.org/">OpenEDG Python Institute</a></li>
+<li><a href="https://www.netacad.com/">Cisco. Networking Academy</a></li>
+<li><a href="https://data-visualization-blog.netlify.app/posts/quarto/">Научно-издательская система Quarto</a></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
